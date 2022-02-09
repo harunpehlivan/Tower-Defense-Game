@@ -9,18 +9,22 @@ menu_bg = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "
 upgrade_btn = pygame.transform.scale(pygame.image.load(os.path.join("game_assets", "upgrade.png")).convert_alpha(), (50, 50))
 
 
-tower_imgs1 = []
-archer_imgs1 = []
-# load archer tower images
-for x in range(7,10):
-    tower_imgs1.append(pygame.transform.scale(
-        pygame.image.load(os.path.join("game_assets/archer_towers/archer_1", str(x) + ".png")).convert_alpha(),
-        (90, 90)))
+tower_imgs1 = [
+    pygame.transform.scale(
+        pygame.image.load(
+            os.path.join("game_assets/archer_towers/archer_1", str(x) + ".png")
+        ).convert_alpha(),
+        (90, 90),
+    )
+    for x in range(7, 10)
+]
 
-# load archer images
-for x in range(37,43):
-    archer_imgs1.append(
-        pygame.image.load(os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")).convert_alpha())
+archer_imgs1 = [
+    pygame.image.load(
+        os.path.join("game_assets/archer_towers/archer_top", str(x) + ".png")
+    ).convert_alpha()
+    for x in range(37, 43)
+]
 
 
 class ArcherTowerLong(Tower):
@@ -66,10 +70,7 @@ class ArcherTowerLong(Tower):
             self.archer_count = 0
 
         archer = self.archer_imgs[self.archer_count // 10]
-        if self.left == True:
-            add = -25
-        else:
-            add = -archer.get_width() + 10
+        add = -25 if self.left == True else -archer.get_width() + 10
         win.blit(archer, ((self.x + add), (self.y - archer.get_height() - 25)))
 
     def change_range(self, r):
@@ -102,10 +103,9 @@ class ArcherTowerLong(Tower):
         enemy_closest = enemy_closest[::-1]
         if len(enemy_closest) > 0:
             first_enemy = enemy_closest[0]
-            if self.archer_count == 50:
-                if first_enemy.hit(self.damage) == True:
-                    money = first_enemy.money * 2
-                    enemies.remove(first_enemy)
+            if self.archer_count == 50 and first_enemy.hit(self.damage) == True:
+                money = first_enemy.money * 2
+                enemies.remove(first_enemy)
 
             if first_enemy.x > self.x and not(self.left):
                 self.left = True
@@ -119,18 +119,22 @@ class ArcherTowerLong(Tower):
         return money
 
 
-tower_imgs = []
-archer_imgs = []
-# load archer tower images
-for x in range(10,13):
-    tower_imgs.append(pygame.transform.scale(
-        pygame.image.load(os.path.join("game_assets/archer_towers/archer_2", str(x) + ".png")),
-        (90, 90)))
+tower_imgs = [
+    pygame.transform.scale(
+        pygame.image.load(
+            os.path.join("game_assets/archer_towers/archer_2", str(x) + ".png")
+        ),
+        (90, 90),
+    )
+    for x in range(10, 13)
+]
 
-# load archer images
-for x in range(43,49):
-    archer_imgs.append(
-        pygame.image.load(os.path.join("game_assets/archer_towers/archer_top_2", str(x) + ".png")))
+archer_imgs = [
+    pygame.image.load(
+        os.path.join("game_assets/archer_towers/archer_top_2", str(x) + ".png")
+    )
+    for x in range(43, 49)
+]
 
 
 class ArcherTowerShort(ArcherTowerLong):

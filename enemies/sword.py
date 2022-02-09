@@ -7,9 +7,16 @@ for x in range(20):
     add_str = str(x)
     if x < 10:
         add_str = "0" + add_str
-    imgs.append(pygame.transform.scale(
-        pygame.image.load(os.path.join("game_assets/enemies/8", "8_enemies_1_run_0" + add_str + ".png")).convert_alpha(),
-        (100, 100)))
+    imgs.append(
+        pygame.transform.scale(
+            pygame.image.load(
+                os.path.join(
+                    "game_assets/enemies/8", f'8_enemies_1_run_0{add_str}.png'
+                )
+            ).convert_alpha(),
+            (100, 100),
+        )
+    )
 
 
 class Sword(Enemy):
