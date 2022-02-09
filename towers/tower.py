@@ -66,9 +66,13 @@ class Tower:
         :return: bool
         """
         img = self.tower_imgs[self.level - 1]
-        if X <= self.x - img.get_width()//2 + self.width and X >= self.x - img.get_width()//2:
-            if Y <= self.y + self.height - img.get_height()//2 and Y >= self.y - img.get_height()//2:
-                return True
+        if (
+            X <= self.x - img.get_width() // 2 + self.width
+            and X >= self.x - img.get_width() // 2
+            and Y <= self.y + self.height - img.get_height() // 2
+            and Y >= self.y - img.get_height() // 2
+        ):
+            return True
         return False
 
     def sell(self):
@@ -112,9 +116,6 @@ class Tower:
         y2 = otherTower.y
 
         dis = math.sqrt((x2 - self.x)**2 + (y2 - self.y)**2)
-        if dis >= 100:
-            return False
-        else:
-            return True
+        return dis < 100
 
 

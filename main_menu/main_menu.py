@@ -26,11 +26,13 @@ class MainMenu:
                     # check if hit start btn
                     x, y = pygame.mouse.get_pos()
 
-                    if self.btn[0] <= x <= self.btn[0] + self.btn[2]:
-                        if self.btn[1] <= y <= self.btn[1] + self.btn[3]:
-                            game = Game(self.win)
-                            game.run()
-                            del game
+                    if (
+                        self.btn[0] <= x <= self.btn[0] + self.btn[2]
+                        and self.btn[1] <= y <= self.btn[1] + self.btn[3]
+                    ):
+                        game = Game(self.win)
+                        game.run()
+                        del game
             self.draw()
 
         pygame.quit()

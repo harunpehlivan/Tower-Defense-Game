@@ -110,11 +110,12 @@ class Game:
         while run:
             clock.tick(500)
 
-            if self.pause == False:
-                # gen monsters
-                if time.time() - self.timer >= random.randrange(1,6)/3:
-                    self.timer = time.time()
-                    self.gen_enemies()
+            if (
+                self.pause == False
+                and time.time() - self.timer >= random.randrange(1, 6) / 3
+            ):
+                self.timer = time.time()
+                self.gen_enemies()
 
             pos = pygame.mouse.get_pos()
 
@@ -170,9 +171,9 @@ class Game:
                             else:
                                 pygame.mixer.music.pause()
 
-                        # look if you click on side menu
-                        side_menu_button = self.menu.get_clicked(pos[0], pos[1])
-                        if side_menu_button:
+                        if side_menu_button := self.menu.get_clicked(
+                            pos[0], pos[1]
+                        ):
                             cost = self.menu.get_item_cost(side_menu_button)
                             if self.money >= cost:
                                 self.money -= cost
@@ -182,12 +183,11 @@ class Game:
                         btn_clicked = None
                         if self.selected_tower:
                             btn_clicked = self.selected_tower.menu.get_clicked(pos[0], pos[1])
-                            if btn_clicked:
-                                if btn_clicked == "Upgrade":
-                                    cost = self.selected_tower.get_upgrade_cost()
-                                    if self.money >= cost:
-                                        self.money -= cost
-                                        self.selected_tower.upgrade()
+                            if btn_clicked and btn_clicked == "Upgrade":
+                                cost = self.selected_tower.get_upgrade_cost()
+                                if self.money >= cost:
+                                    self.money -= cost
+                                    self.selected_tower.upgrade()
 
                         if not(btn_clicked):
                             for tw in self.attack_towers:

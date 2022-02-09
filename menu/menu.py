@@ -26,10 +26,12 @@ class Button:
         :param Y: int
         :return: bool
         """
-        if X <= self.x + self.width and X >= self.x:
-            if Y <= self.y + self.height and Y >= self.y:
-                return True
-        return False
+        return (
+            X <= self.x + self.width
+            and X >= self.x
+            and Y <= self.y + self.height
+            and Y >= self.y
+        )
 
     def draw(self, win):
         """
@@ -133,11 +135,7 @@ class Menu:
         :param Y: int
         :return: str
         """
-        for btn in self.buttons:
-            if btn.click(X,Y):
-                return btn.name
-
-        return None
+        return next((btn.name for btn in self.buttons if btn.click(X,Y)), None)
 
     def update(self):
         """
@@ -180,10 +178,7 @@ class VerticalMenu(Menu):
         :param name: str
         :return: int
         """
-        for btn in self.buttons:
-            if btn.name == name:
-                return btn.cost
-        return -1
+        return next((btn.cost for btn in self.buttons if btn.name == name), -1)
 
     def draw(self, win):
         """

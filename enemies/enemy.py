@@ -53,10 +53,12 @@ class Enemy:
         :param y: int
         :return: Bool
         """
-        if X <= self.x + self.width and X >= self.x:
-            if Y <= self.y + self.height and Y >= self.y:
-                return True
-        return False
+        return (
+            X <= self.x + self.width
+            and X >= self.x
+            and Y <= self.y + self.height
+            and Y >= self.y
+        )
 
     def move(self):
         """
@@ -92,16 +94,10 @@ class Enemy:
             if dirn[1] >= 0: # moving down
                 if self.x >= x2 and self.y >= y2:
                     self.path_pos += 1
-            else:
-                if self.x >= x2 and self.y <= y2:
-                    self.path_pos += 1
-        else: # moving left
-            if dirn[1] >= 0:  # moving down
-                if self.x <= x2 and self.y >= y2:
-                    self.path_pos += 1
-            else:
-                if self.x <= x2 and self.y >= y2:
-                    self.path_pos += 1
+            elif self.x >= x2 and self.y <= y2:
+                self.path_pos += 1
+        elif self.x <= x2 and self.y >= y2:
+            self.path_pos += 1
 
     def hit(self, damage):
         """
@@ -113,17 +109,6 @@ class Enemy:
         if self.health <= 0:
             return True
         return False
-
-        self.x = self.path[0][0]
-        self.y = self.path[0][1]
-        self.img = None
-        self.dis = 0
-        self.path_pos = 0
-        self.move_count = 0
-        self.move_dis = 0
-        self.imgs = []
-        self.flipped = False
-        self.max_health = 0
 
     def draw(self, win):
         """
@@ -156,10 +141,12 @@ class Enemy:
         :param y: int
         :return: Bool
         """
-        if X <= self.x + self.width and X >= self.x:
-            if Y <= self.y + self.height and Y >= self.y:
-                return True
-        return False
+        return (
+            X <= self.x + self.width
+            and X >= self.x
+            and Y <= self.y + self.height
+            and Y >= self.y
+        )
 
     def move(self):
         """
@@ -198,16 +185,10 @@ class Enemy:
             if dirn[1] >= 0: # moving down
                 if self.x >= x2 and self.y >= y2:
                     self.path_pos += 1
-            else:
-                if self.x >= x2 and self.y <= y2:
-                    self.path_pos += 1
-        else: # moving left
-            if dirn[1] >= 0:  # moving down
-                if self.x <= x2 and self.y >= y2:
-                    self.path_pos += 1
-            else:
-                if self.x <= x2 and self.y >= y2:
-                    self.path_pos += 1
+            elif self.x >= x2 and self.y <= y2:
+                self.path_pos += 1
+        elif self.x <= x2 and self.y >= y2:
+            self.path_pos += 1
 
     def hit(self, damage):
         """
